@@ -70,7 +70,7 @@ follow_line:
 	push %rax
 	push %rbx
 	push %r8
-	mov $1, %r9
+	mov $0, %r9
 	/*
 	stack:
 		0 - address
@@ -78,19 +78,19 @@ follow_line:
 		16 - width
 		24 - old rdx
 	*/
-	cmp 8(%rsp), %rdx
+	cmp 16(%rsp), %rdx
 	jge finish
 	
-	mov (%rsp), %rbx
-downloop:
-	mov 16(%rsp), %rax
-	call get_element
-	cmp $0, %rax
-	jne finish
-	inc %r9
+	downloop:
+		mov (%rsp), %rbx
+		mov 16(%rsp), %rax
+		call get_element
+		cmp $0, %rax
+		jne finish
+		inc %r9
 
-	inc %rdx
-	cmp 8(%rsp), %rdx
+		inc %rdx
+		cmp 8(%rsp), %rdx
 	jl downloop
 	
 	finish:
