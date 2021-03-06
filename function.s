@@ -1,22 +1,13 @@
 .globl lineFinder
-/*
-//stack:
-//	0 : height
-//	8 : width
-//	16 : array pointer
-*/
 lineFinder: 
 	push %rcx
 	push %rdx
 	push %r8
-	
 	xor %rcx, %rcx
 	xor %rdx, %rdx
 	xor %r9, %r9
 	xor %r10, %r10
-// rcx - horisontal iteration
-// rdx - vertical iteration
-
+	
 	width_loop:
 		xor %rcx, %rcx
 		height_loop:
@@ -42,9 +33,10 @@ lineFinder:
 		jl width_loop
 	
 	mov %r10, %rax
-	
 	add $24, %rsp
 	ret
+	
+	
 // rcx, rdx - iterators for position
 // rax - width
 // rbx - address
@@ -71,14 +63,7 @@ follow_line:
 	push %rbx
 	push %r8
 	mov $0, %r9
-	/*
-	stack:
-		0 - address
-		8 - height
-		16 - width
-		24 - old rdx
-	*/
-	cmp 16(%rsp), %rdx
+	cmp 8(%rsp), %rdx
 	jge finish
 	
 	downloop:
